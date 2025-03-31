@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global background image with transparency */
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Fix Tailwind Dark Mode */
+@layer base {
+  :root {
+    --background: #ffffff;
+    --foreground: #000000;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: #111827; /* Darker background */
+    --foreground: #ffffff;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground transition-colors duration-300;
+  }
+}
+
+/* Smooth fade-in effect */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Global Dark Mode Fix */
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Fix Overlay for Light & Dark Mode */
+body {
+  background-size: cover;
+  position: relative;
+}
+
+/* Ensure overlay does not interfere with dark mode */
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.32); /* 32% opacity */
+  backdrop-filter: blur(4px); /* Slight blur for smoothness */
+  z-index: -1;
+}
+
+.dark body::before {
+  background: rgba(0, 0, 0, 0.3); /* Dark mode overlay */
+  backdrop-filter: blur(4px);
+}
+
+/* Ensure all elements sit above the overlay */
+* {
+  position: relative;
+}
+
+/* Enhanced Select Dropdown */
+select {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 8px rgba(37, 99, 235, 0.5);
+}
+
+.custom-dropdown-option:hover {
+  background-color: rgba(229, 231, 235, 0.8);
+}
